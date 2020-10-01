@@ -1252,7 +1252,7 @@ while (my ($id, $node) = each %Node) {
 	} else {
 		my $pct = sprintf "%.2f", ((100 * $samples) / ($timemax * $factor));
 
-	    ($func, $dependencies) = split('\|\|\|', $func);
+		($func, $dependencies) = split('\|\|\|', $func);
 
 		my $escaped_func = $func;
 		# clean up SVG breaking characters:
@@ -1304,7 +1304,7 @@ while (my ($id, $node) = each %Node) {
 
 	my $extra = "";
 	if (defined $dependencies) {
-	    $extra = 'dependencies="' . $dependencies . '"';
+		$extra = 'dependencies="' . $dependencies . '"';
 	}
 	$im->stringTTF(undef, $x1 + 3, 3 + ($y1 + $y2) / 2, $text, $extra);
 
