@@ -85,6 +85,7 @@ my $target_pname;	# target process name from perf invocation
 my $event_filter = "";    # event type filter, defaults to first encountered event
 my $event_defaulted = 0;  # whether we defaulted to an event (none provided)
 my $event_warning = 0;	  # if we printed a warning for the event
+my $include_mod = 0;	  # Include module name
 
 my $show_inline = 0;
 my $show_context = 0;
@@ -96,7 +97,8 @@ GetOptions('inline' => \$show_inline,
            'all' => \$annotate_all,
            'tid' => \$include_tid,
            'addrs' => \$include_addrs,
-           'event-filter=s' => \$event_filter)
+           'event-filter=s' => \$event_filter,
+		   'modname' => \$include_mod)
 or die <<USAGE_END;
 USAGE: $0 [options] infile > outfile\n
 	--pid		# include PID with process names [1]
@@ -108,6 +110,7 @@ USAGE: $0 [options] infile > outfile\n
 	--context	# adds source context to --inline
 	--addrs		# include raw addresses where symbols can't be found
 	--event-filter=EVENT	# event name filter\n
+	--modname	# add module name to fucntion names\n
 [1] perf script must emit both PID and TIDs for these to work; eg, Linux < 4.1:
 	perf script -f comm,pid,tid,cpu,time,event,ip,sym,dso,trace
     for Linux >= 4.1:
@@ -296,6 +299,10 @@ while (defined($_ = <>)) {
 				} else {
 					$func = "\[$func\]";
 				}
+			}
+
+			if ($include_mod) {
+				$func = "$func [$mod]"
 			}
 
 			if ($tidy_generic) {
