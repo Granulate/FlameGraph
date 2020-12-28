@@ -443,16 +443,16 @@ sub color {
 		# Handle both annotations (_[j], _[i], ...; which are
 		# accurate), as well as input that lacks any annotations, as
 		# best as possible. Without annotations, we get a little hacky,
-		# and match on a "/" with a ".js", etc.
+		# and match on a "/" or a ".js", etc.
 		if ($name =~ m:_\[j\]$:) {	# jit annotation
-			if ($name =~ m:/:) {
+			if ($name =~ m:/: or $name =~ m/\.js:/) {
 				$type = "green";	# source
 			} else {
 				$type = "aqua";		# builtin
 			}
 		} elsif ($name =~ /::/) {	# C++
 			$type = "yellow";
-		} elsif ($name =~ m:/.*\.js:) {	# JavaScript (match "/" in path)
+		} elsif ($name =~ m:/: or $name =~ m/\.js:/) {	# JavaScript (match "/" or ".js")
 			$type = "green";
 		} elsif ($name =~ m/:/) {	# JavaScript (match ":" in builtin)
 			$type = "aqua";
