@@ -472,7 +472,7 @@ sub color {
 		# and match on a "/" with a ".py", etc.
 		if ($name =~ m:_\[j\]$:) {	# jit annotation
 			$type = "green";
-		} elsif ($name =~ m:/.*\.py.?:) {	# Python (match "/" in path)
+		} elsif ($name =~ m:.*\.py.?:) {	# Python (match "*.py" path)
 			$type = "green";
 		} elsif ($name =~ m:python:) {	# cpython
 			$type = "yellow";
