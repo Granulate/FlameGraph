@@ -407,6 +407,42 @@ sub color {
 	}
 
 	# multi palettes
+	if (defined $type and $type eq "combined") {
+		# Java
+		# Handle both annotations (_[j], _[i], ...; which are
+		# accurate), as well as input that lacks any annotations, as
+		# best as possible. Without annotations, we get a little hacky
+		# and match on java|org|com, etc.
+		if ($name =~ m:_\[j\]$:) {	# jit annotation
+			$type = "green";
+		} elsif ($name =~ m:_\[i\]$:) {	# inline annotation
+			$type = "aqua";
+		} elsif ($name =~ m:^L?(java|javax|jdk|net|org|com|io|sun)/:) {	# Java
+			$type = "green";
+
+		# Python
+		} elsif ($name =~ m:.*\.py.?:) {	# Python (match "/" in path)
+			$type = "blue";
+		} elsif ($name =~ m:python:) {	# cpython
+			$type = "yellow";
+
+		} elsif ($name =~ /::/) {	# C++
+			$type = "yellow";
+		} elsif ($name =~ m:_\[k\]$:) {	# kernel annotation
+			$type = "orange";
+
+		# Go
+		# Handle annotations (_[j], _[k], ...; which are
+		# accurate), as well as input that lacks any annotations, as
+		# best as possible. Without annotations, we get a little hacky,
+		# and match on a "/" with a ".py", etc.
+		} elsif ($name =~ m:\.:) {	# general go
+			$type = "purple";
+
+		} else {			# system
+			$type = "red";
+		}
+	}
 	if (defined $type and $type eq "java") {
 		# Handle both annotations (_[j], _[i], ...; which are
 		# accurate), as well as input that lacks any annotations, as
