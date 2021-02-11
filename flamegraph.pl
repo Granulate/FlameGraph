@@ -421,7 +421,9 @@ sub color {
 			$type = "green";
 
 		# Python
-		} elsif ($name =~ m:.*\.py.?:) {	# Python (match "/" in path)
+		} elsif ($name =~ m:.*\.py.?:) {	# Python (match ".py" in path)
+			$type = "blue";
+		} elsif ($name =~ /<decorator-gen-\d+>/) {
 			$type = "blue";
 		} elsif ($name =~ m:python:) {	# cpython
 			$type = "yellow";
@@ -432,10 +434,6 @@ sub color {
 			$type = "orange";
 
 		# Go
-		# Handle annotations (_[j], _[k], ...; which are
-		# accurate), as well as input that lacks any annotations, as
-		# best as possible. Without annotations, we get a little hacky,
-		# and match on a "/" with a ".py", etc.
 		} elsif ($name =~ m:\.:) {	# general go
 			$type = "purple";
 
