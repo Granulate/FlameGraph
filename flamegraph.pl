@@ -121,7 +121,7 @@ my $flamechart = 0;             # produce a flame chart (sort by time, do not me
 my $negate = 0;                 # switch differential hues
 my $titletext = "";             # centered heading
 my $titledefault = "Flame Graph";	# overwritten by --title
-my $titleinverted = "Icicle Graph";	#   "    "
+my $titleinverted = "";	#   "    "
 my $searchcolor = "rgb(230,0,230)";	# color for search highlighting
 my $notestext = "";		# embedded notes in SVG
 my $subtitletext = "";		# second level title (optional)
@@ -413,13 +413,10 @@ sub color {
 		# accurate), as well as input that lacks any annotations, as
 		# best as possible. Without annotations, we get a little hacky
 		# and match on java|org|com, etc.
-		if ($name =~ m:_\[j\]$:) {	# jit annotation
+		if ($name =~ m:_\[j\]:) {	# jit annotation
 			$type = "green";
 		} elsif ($name =~ m:_\[i\]$:) {	# inline annotation
 			$type = "aqua";
-		} elsif ($name =~ m:^L?(java|javax|jdk|net|org|com|io|sun)/:) {	# Java
-			$type = "green";
-
 		# Python
 		} elsif ($name =~ m:.*\.py.?:) {	# Python (match ".py" in path)
 			$type = "blue";
@@ -1312,6 +1309,7 @@ while (my ($id, $node) = each %Node) {
 		$escaped_func =~ s/</&lt;/g;
 		$escaped_func =~ s/>/&gt;/g;
 		$escaped_func =~ s/"/&quot;/g;
+		$escaped_func =~ s/_\[s\]$//;		# strip new static annotation
 		$escaped_func =~ s/_\[[kwij]\]$//;	# strip any annotation
 		unless (defined $delta) {
 			$info = "$escaped_func ($samples_txt $countname, $pct%)";
