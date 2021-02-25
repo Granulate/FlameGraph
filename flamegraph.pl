@@ -416,7 +416,7 @@ sub color {
 		if ($name =~ m:_\[j\]:) {	# jit annotation
 			$type = "green";
 		} elsif ($name =~ m:_\[i\]$:) {	# inline annotation
-			$type = "aqua";
+			$type = "purple";
 		# Python
 		} elsif ($name =~ m:.*\.py.?:) {	# Python (match ".py" in path)
 			$type = "blue";
@@ -432,7 +432,7 @@ sub color {
 
 		# Go
 		} elsif ($name =~ m:\.:) {	# general go
-			$type = "purple";
+			$type = "aqua";
 
 		} else {			# system
 			$type = "red";
@@ -828,7 +828,7 @@ my $inc = <<INC;
 </defs>
 <style type="text/css">
 	text { font-family:$fonttype; font-size:${fontsize}px; fill:$black; }
-	#search, #ignorecase { opacity:0.1; cursor:pointer; }
+	#search, #ignorecase { opacity:0.5; cursor:pointer; }
 	#search:hover, #search.show, #ignorecase:hover, #ignorecase.show { opacity:1; }
 	#subtitle { text-anchor:middle; font-color:$vdgrey; }
 	#title { text-anchor:middle; font-size:${titlesize}px}
@@ -1259,9 +1259,9 @@ $im->stringTTF("subtitle", int($imagewidth / 2), $fontsize * 4, $subtitletext) i
 $im->stringTTF("details", $xpad, $imageheight - ($ypad2 / 2), " ");
 $im->stringTTF("dependencies", $xpad, $imageheight - ($ypad2 / 2) + 20, " ");
 $im->stringTTF("unzoom", $xpad, $fontsize * 2, "Reset Zoom", 'class="hide"');
-$im->stringTTF("search", $imagewidth - $xpad - 100, $fontsize * 2, "Search");
-$im->stringTTF("ignorecase", $imagewidth - $xpad - 16, $fontsize * 2, "ic");
-$im->stringTTF("matched", $imagewidth - $xpad - 100, $imageheight - ($ypad2 / 2), " ");
+$im->stringTTF("search", $imagewidth - $xpad - 170, $fontsize * 2, "Search");
+$im->stringTTF("ignorecase", $imagewidth - $xpad - 75, $fontsize * 2, "Ignore-Case");
+$im->stringTTF("matched", $imagewidth - $xpad - 170, $imageheight - ($ypad2 / 2), " ");
 
 if ($palette) {
 	read_palette();
