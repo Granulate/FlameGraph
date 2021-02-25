@@ -1256,12 +1256,18 @@ $im->include($inc);
 $im->filledRectangle(0, 0, $imagewidth, $imageheight, 'url(#background)');
 $im->stringTTF("title", int($imagewidth / 2), $fontsize * 2, $titletext);
 $im->stringTTF("subtitle", int($imagewidth / 2), $fontsize * 4, $subtitletext) if $subtitletext ne "";
-$im->stringTTF("details", $xpad, $imageheight - ($ypad2 / 2), " ");
 $im->stringTTF("dependencies", $xpad, $imageheight - ($ypad2 / 2) + 20, " ");
-$im->stringTTF("unzoom", $xpad, $fontsize * 2, "Reset Zoom", 'class="hide"');
 $im->stringTTF("search", $imagewidth - $xpad - 170, $fontsize * 2, "Search");
 $im->stringTTF("ignorecase", $imagewidth - $xpad - 75, $fontsize * 2, "Ignore-Case");
-$im->stringTTF("matched", $imagewidth - $xpad - 170, $imageheight - ($ypad2 / 2), " ");
+unless ($inverted) {
+	$im->stringTTF("unzoom", $xpad, $fontsize * 2, "Reset Zoom", 'class="hide"');
+	$im->stringTTF("details", $xpad, $imageheight - ($ypad2 / 2), " ");
+	$im->stringTTF("matched", $imagewidth - $xpad - 100, $imageheight - ($ypad2 / 2), " ");
+} else {
+	$im->stringTTF("unzoom", $imagewidth - $xpad - 290, $fontsize * 2, "Reset Zoom", 'class="hide"');
+	$im->stringTTF("details", $xpad, $fontsize * 2, " ");
+	$im->stringTTF("matched", int($imagewidth / 2), $fontsize * 2, " ");
+}
 
 if ($palette) {
 	read_palette();
