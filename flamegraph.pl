@@ -417,6 +417,8 @@ sub color {
 			$type = "green";
 		} elsif ($name =~ m:_\[i\]$:) {	# inline annotation
 			$type = "purple";
+		} elsif ($name =~ m:_\[php\]$:) {	# php annotation
+			$type = "purple";
 		# Python
 		} elsif ($name =~ m:.*\.py.?:) {	# Python (match ".py" in path)
 			$type = "blue";
